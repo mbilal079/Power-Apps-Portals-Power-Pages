@@ -1,0 +1,1630 @@
+<!-- DSYA Enrollment Form -->
+{% include 'Enrollment Form CSS' %}
+{% include 'LoaderCSS WT' %}
+<div class="container-fluid maintenancemode hideit">
+    <h2>Under Maintenance</h2>
+    <h5>Sorry for inconvenience, please check back later</h5>
+</div>
+
+<div class="preloader">
+    <div class="inloader">
+        <section class="wrapper">
+            <div class="spinner">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+            </div>
+        </section>
+    </div> 
+</div>
+
+<div class="signaturebox " style="">
+    <div id="selectedimage" class="col-md-12"></div>
+    <div class="col-md-12" id="signature" style=""></div>
+    <div class="col-md-12 text-center">
+        <span>Draw your signature above the line, if signatire canvas is not visible please <a href="#" onclick="loadcanvas()">click here </a></span><br>
+        <span>Do not refresh the page, by reloading the page, filled out data will be removed.</span>
+    </div>
+    <div class="col-md-12 text-center" style="margin-top: 20px;">
+        <button onclick="reset()">Reset</button>
+        <button onclick="selectit()">Select It</button> 
+    </div> 
+    <!-- <button onclick="loadcanvas()">Load Signature Canvas</button> -->
+</div>
+
+<div id="maincontent" class="wrapper-body "> 
+
+    {% include 'Form Text' %} 
+
+    <!-- questionnaire -->
+    <div class="container-fluid qform cfaenrollmentform hi hideit"> 
+        <div class="container qcont">
+            <div class="navbtns"> 
+                <i class="bi bi-x-circle"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                    class="bi bi-x-circle closebtn" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg> 
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 qdiv q-1 active"> 
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Are you under the age of 18? </span></h4> 
+                    </div>
+                    <div class="col-md-12 qfields">
+                        <p>You will need your parent or guardian's approval before submitting your application. Please
+                            have your parent or guardian read through the materials enclosed above before continuing
+                            with this application.</p>
+                        <p>They will also need to be present with you at the agreement page at the end of this
+                            application form to give their approval.</p>
+                        <div class="col-md-6 p0">
+                            <label for="under18">Are you under the age of 18? *</label>
+                            <select name="" id="under18" class="form-control cboolean required depend">
+                                <option value=""></option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="form-check">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form page 2 -->
+                <div class="col-md-12 qdiv q-2">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Contact Information</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-6">
+                            <label for="fname">First Name*</label>
+                            <input type="text" placeholder="" class="form-control required" id="fname">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lname">Last Name*</label>
+                            <input type="text" placeholder="" class="form-control required" id="lname">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="othername">What other name do you go by (if any)?</label>
+                            <input type="text" placeholder="" class="form-control" id="othername">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email">Email Address*</label>
+                            <input type="email" placeholder="" class="form-control required" id="email">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="phone">Phone Number*</label>
+                            <input type="text" placeholder="" class="form-control required" id="phone">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="dob">Date of Birth*</label>
+                            <input type="date" placeholder="" class="form-control required" id="dob">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="city">City*</label>
+                            <input type="text" placeholder="" class="form-control required" id="city">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="stat">State*</label>
+                            <input type="text" placeholder="" class="form-control required" id="state">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="zipcode">Zipcode*</label>
+                            <input type="text" placeholder="Zipcode*" class="form-control required" id="zipcode">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="address">Home Address*</label>
+                            <input type="text" placeholder="Home Address*" class="form-control required" id="address">
+                        </div>
+                        <div class="col-md-12 p0 under18_section under18_true">
+                            <div class="col-md-6">
+                                <label for="parentname">Name of Parent/Guardian*</label>
+                                <input type="text" placeholder="" class="form-control" id="parentname">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="parentphone">Parent/Guardian Phone Number*</label>
+                                <input type="text" placeholder="" class="form-control" id="parentphone">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="parentemail">Parent/Guardian E-mail Address*</label>
+                                <input type="text" placeholder="" class="form-control" id="parentemail">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="parentaddress">Address of Parent/Guardian*</label>
+                                <input type="text" placeholder="" class="form-control" id="parentaddress">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 3 -->
+                <div class="col-md-12 qdiv q-3">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Demographics</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-6">
+                            <label for="education">What is your level of education?*</label>
+                            <select name="education" class="form-control sdd  required" id="education">
+                                <option value=""></option>
+                                <option value="100000000">Currently in high school or less than high school diploma</option>
+                                <option value="100000001">GED</option>
+                                <option value="100000002">High school graduate</option>
+                                <option value="100000003">Some post high school, no degree or certificate yet</option>
+                                <option value="100000004">Certificate (less than two years)</option>
+                                <option value="100000005">Associate's Degree</option>
+                                <option value="100000006">Bachelor's Degree</option>
+                                <option value="100000007">Master's Degree</option>
+                                <option value="100000008">Doctoral Degree or above</option>
+                                <!-- <option value="100000009">Other</option> -->
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="race">Race*</label>
+                            <select name="race" class="form-control sdd  required" id="race">
+                                <option value="">Select Race</option>
+                                <option value="100000004">Asian</option>
+                                <option value="100000002">Black or African American</option>
+                                <option value="100000001">White / Caucasian</option>
+                                <option value="100000005">Native Hawaiian or Pacific Islander</option>
+                                <option value="100000009">Hispanic</option>
+                                <option value="100000003">American Indian or Alaska Native</option>
+                                <option value="100000006">Multi-race</option>
+                                <option value="100000007">Not Elsewhere Classified / Other</option>
+                                <option value="100000008">Not Specified / Unknown</option>
+                                <option value="100000010">Decline to self-identify</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="hispanic">Hispanic Origin*</label>
+                            <select name="hispanic" class="form-control cboolean  required" id="hispanic">
+                                <option value=""></option>
+                                <option value="1">I am a person of Hispanic origin</option>
+                                <option value="0">I am NOT Hispanic</option>
+                                <option value="2">I prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="gender">Gender*</label>
+                            <select name="gender" id="gender" class="form-control sdd required">
+                                <option value=""></option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="100000001">Other</option>
+                                <option value="100000002">I prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="disability">Disability*</label>
+                            <select name="disability" id="disability" class="form-control required">
+                                <option value=""></option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                                <option value="2">I prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="veteran">Are you a Veteran?*</label>
+                            <select name="veteran" id="veteran" class="form-control required cboolean">
+                                <option value=""></option>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                                <option value="2">I prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 4 -->
+                <div class="col-md-12 qdiv q-4">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">CFA/DSYA Programs</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-6">
+                            <select name="cfaprogram" class="form-control sdd required" id="cfaprogram">
+                                <option value="">Which CFA/DSYA Program(s) are you applying for? *</option>
+                                <option value="100000000">Afternoon Class 1:00 - 4:45 PM M - TH</option>
+                                <option value="100000001">Evening Class 4:00 - 6:45 PM Tuesdays and Thursdays</option>
+                                <!-- <option value="100000002">I am a young adult 16 - 24</option> -->
+                                <!-- <option value="100000003">I am an adult over 25 years old</option> --> 
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="stydenttype" id="stydenttype" class="form-control sdd required depend">
+                                <option value="">Are you, or will you be, a high school student or college student? *</option>
+                                <option value="100000000">High School</option>
+                                <option value="100000001">College</option>
+                                <option value="100000002">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 p0 collegeinfo hideit stydenttype_100000001">
+                            <div class="col-md-12">
+                                <h4>College Information</h4>
+                                <p>Accepted students will need to fill out the release forms below to be formally
+                                    accepted into the program.</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="text" id="nameofcollege" class="form-control " placeholder="Name of College or Trade School *">
+                            </div>
+                            <div class="col-md-6">
+                                <select name="yearofgrad" id="yearofgrad" class="form-control sdd ">
+                                    <option value="">Expected Year of Graduation *</option>
+                                    <option value="100000000">2022</option>
+                                    <option value="100000001">2023</option>
+                                    <option value="100000002">2024</option>
+                                    <option value="100000003">2025</option>
+                                    <option value="100000004">2026</option>
+                                    <option value="100000005">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="favclass" class="form-control " placeholder="Favorite Classes *">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="languages" class="form-control " placeholder="Languages Spoken *">
+                            </div>
+                        </div>
+                        <div class="col-md-12 p0 schoolinfo hideit stydenttype_100000000">
+                            <div class="col-md-12">
+                                <h4>High School Information</h4>
+                                <p>Are in high school? What high school or GED program did you graduate from?</p>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="nameofhighschool" class="form-control " placeholder="Name of High School *">
+                            </div>
+                            <div class="col-md-6">
+                                <select name="gradeinschool" id="gradeinschool" class="form-control sdd ">
+                                    <option value="">Current Grade in School *</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="298090001">11</option>
+                                    <option value="298090002">12</option>
+                                    <option value="100000001">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <select name="yearofgrad" id="yearofgrad" class="form-control sdd ">
+                                    <option value="">Expected Year of Graduation *</option>
+                                    <option value="100000000">2022</option>
+                                    <option value="100000001">2023</option>
+                                    <option value="100000002">2024</option>
+                                    <option value="100000003">2025</option>
+                                    <option value="100000004">2026</option>
+                                    <option value="100000005">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="favclass" class="form-control " placeholder="Favorite Classes *">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="languages" class="form-control " placeholder="Languages Spoken *">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Form page 5 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Work / Volunteer Experience</span></h4>
+                        <!-- <div class="horzline"></div> -->
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+                            <h5>Work / Volunteer Experience #1</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="employername1">Employer Name</label>
+                            <input type="text" id="employername1" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="position1">Position</label>
+                            <input type="text" id="position1" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="employmentdates1">Dates of Employment (Month/Year)</label>
+                            <input type="text" id="employmentdates1" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contactinfo1">Contact Info (Supervisor, Address, Phone)</label>
+                            <input type="text" id="contactinfo1" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-12">
+                            <h5>Work / Volunteer Experience #2</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="employername2">Employer Name</label>
+                            <input type="text" id="employername2" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="position2">Position</label>
+                            <input type="text" id="position2" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="employmentdate2">Dates of Employment (Month/Year)</label>
+                            <input type="text" id="employmentdate2" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contactinfo2">Contact Info (Supervisor, Address, Phone)</label>
+                            <input type="text" id="contactinfo2" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-12">
+                            <h5>Work / Volunteer Experience #3</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="employername3">Employer Name</label>
+                            <input type="text" id="employername3" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="position3">Position</label>
+                            <input type="text" id="position3" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="employmentdate3">Dates of Employment (Month/Year)</label>
+                            <input type="text" id="employmentdate3" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contactinfo3">Contact Info (Supervisor, Address, Phone)</label>
+                            <input type="text" id="contactinfo3" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <select name="haveajob" id="haveajob" class="form-control cboolean depend">
+                                <option value="">Do you currently have a job?</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 ihavejob p0 hideit haveajob_true">
+                            <div class="col-md-6">
+                                <label for="jobtitle">Job Title</label>
+                                <input type="text" id="jobtitle" class="form-control " placeholder="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="joblocation">Job Location</label>
+                                <input type="text" id="joblocation" class="form-control " placeholder="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="jobschedule">Job Schedule</label>
+                                <input type="text" id="jobschedule" class="form-control " placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 6 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Career Goals</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-6">
+                            <label for="attendorplancollege">Do you attend or do you plan to attend college or a trade school? *</label>
+                            <select name="attendorplancollege" id="attendorplancollege" class="form-control sdd required">
+                                <option value="">--</option>
+                                <option value="100000000">Yes</option>
+                                <option value="100000001">No</option>
+                                <option value="100000002">Already in a college or trade school</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="whereapply">If yes, where do you plan to apply?</label>
+                            <input type="text" id="whereapply" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="careerinterested">What career(s) are you interested in at this time? </label>
+                            <textarea name="careerinterested" id="careerinterested" class="form-control " rows="4"></textarea>
+
+                        </div>
+                        <div class="col-md-12">
+                            <label for="sparetimeactivity">What do you like to do in your spare time?</label>
+                            <textarea name="sparetimeactivity" id="sparetimeactivity" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="howdsyaassistyou">How do you think this program will assist you in reaching your future career goals?</label>
+                            <textarea name="howdsyaassistyou" id="howdsyaassistyou" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="goodat">What kinds of things are you good at? (Art, basketball, music, etc.)</label>
+                            <textarea name="goodat" id="goodat" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <h4>Technology</h4>
+                            <p class="mb0">Please rate your current abilities in the following categories. </p>
+                            <p class="mb0">This information is not used to determine your eligibility as part of the
+                                program, but helps us ascertain what skills you have yet to learn.</p>
+                            <p>Please answer these questions honestly.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="rateyourability" id="rateyourability" class="form-control sdd required">
+                                <option value="">Rate your ability to use computers: *</option>
+                                <option value="100000000">High</option>
+                                <option value="100000001">Medium</option>
+                                <option value="100000002">Low</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="takenatechcourse" id="takenatechcourse" class="form-control cboolean required">
+                                <option value="">Have you ever taken a technology course or training before? *</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="nameofcourse" class="form-control " placeholder="If yes, what was the name of the course?">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="nameofschool" class="form-control " placeholder="If yes, what was the name of the school?">
+                        </div>
+                        <div class="col-md-6">
+                            <select name="haveapc" id="haveapc" class="form-control cboolean required">
+                                <option value="">Do you have a computer at home? *</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="haveinternet" id="haveinternet" class="form-control cboolean required">
+                                <option value="">Do you have Internet access at home? *</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="oftencomputer" id="oftencomputer" class="form-control sdd required">
+                                <option value="">How often do you use a computer? *</option>
+                                <option value="100000000">Daily</option>
+                                <option value="100000001">Three (3) times per week</option>
+                                <option value="100000002">Once per week</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="ofteninternet" id="ofteninternet" class="form-control sdd required">
+                                <option value="">How often do you use the internet? *</option>
+                                <option value="100000000">Daily</option>
+                                <option value="100000001">Three (3) times per week</option>
+                                <option value="100000002">Once per week</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 7 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Specific Technology Skills</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+                            <p class="mb0">Please rate your current abilities in the following categories.</p>
+                            <p class="mb0">This information is not used to determine your eligibility as part of the
+                                program, but helps us create curriculum and measure performance over the course of the
+                                internship program.</p>
+                            <p class="mb0">Please answer these questions honestly.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="internetetc" id="internetetc" class="form-control sdd required">
+                                <option value="">Internet (Internet Explorer, Google, etc.) *</option>
+                                <option value="100000000">High</option>
+                                <option value="100000001">Medium</option>
+                                <option value="100000002">Low</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="emailetc" id="emailetc" class="form-control sdd required">
+                                <option value="">E-mail (Hotmail, Yahoo Mail, Gmail, etc.) *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="msoffice" id="msoffice" class="form-control sdd required">
+                                <option value="">Microsoft Office (Word, Excel, PowerPoint, etc.) *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="webdesign" id="webdesign" class="form-control sdd required">
+                                <option value="">Web Design (HTML, CSS, Dreamweaver, Wix, WordPress, etc) *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="digitalmedia" id="digitalmedia" class="form-control sdd required">
+                                <option value="">Creating Digital Media (Music, Photography, Video) *</option>
+                                <option value="100000000">High</option>
+                                <option value="100000001">Medium</option>
+                                <option value="100000002">Low</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="graphicdesign" id="graphicdesign" class="form-control sdd required">
+                                <option value="">Graphic Design (PhotoShop, Illustrator, etc.) *</option>
+                                <option value="100000000">High</option>
+                                <option value="100000001">Medium</option>
+                                <option value="100000002">Low</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="phoneortablet" id="phoneortablet" class="form-control sdd required">
+                                <option value="">Smartphones or Tablets *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="codeinhtml" id="codeinhtml" class="form-control sdd required">
+                                <option value="">Coding in HTML and CSS *</option>
+                                <option value="100000000">High</option>
+                                <option value="100000001">Medium</option>
+                                <option value="100000002">Low</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="codeinjs" id="codeinjs" class="form-control sdd required">
+                                <option value="">Coding in JavaScript *</option>
+                                <option value="100000000">High</option>
+                                <option value="100000001">Medium</option>
+                                <option value="100000002">Low</option>
+                                <option value="100000003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="softinstall" id="softinstall" class="form-control sdd required">
+                                <option value="">Software Installation *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="pctroubleshoot" id="pctroubleshoot" class="form-control sdd required">
+                                <option value="">PC or Apple Troubleshooting and Maintenance *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="networkadmin" id="networkadmin" class="form-control sdd required">
+                                <option value="">Network Administration *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="blogsetc" id="blogsetc" class="form-control sdd required">
+                                <option value="">Blogs, Discussion Groups, Podcasting *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select name="editsoftware" id="editsoftware" class="form-control sdd required">
+                                <option value="">Video Editing Software *</option>
+                                <option value="298090000">High</option>
+                                <option value="298090001">Medium</option>
+                                <option value="298090002">Low</option>
+                                <option value="298090003">Not at all</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea class="form-control" name="otherskills" id="otherskills" cols="30" rows="4" placeholder="Do you have any other technology skills not listed here?"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 8 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Short Answer Questions</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+                            <p>Please answer each of the questions below in at least one (1) paragraph and within 200
+                                words or less.</p>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="futuregoals">What are your future goals? *</label>
+                            <textarea class="form-control required" name="futuregoals" id="futuregoals" cols="30" rows="4" placeholder=""></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="hopetoprogram">What do you hope to get out of this program? *</label>
+                            <textarea class="form-control required" name="hopetoprogram" id="hopetoprogram" cols="30" rows="4" placeholder=""></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="stipendplan">What do you plan to do with the stipend you earn (applies to young
+                                 adults 16 - 24 only)? *</label>
+                            <textarea class="form-control required" name="stipendplan" id="stipendplan" cols="30" rows="4" placeholder=""></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 9 -->
+                <div class="col-md-12 q-4 qdiv page-otherinfo">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Other Information</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12 p0">
+                            <div class="col-md-6">
+                                <label for="wherehear" class="">Where did you hear about the CFA/DSYA program? *</label>
+                                <select name="wherehear" id="wherehear" class="form-control sdd required">
+                                    <option value="">--</option>
+                                    <option value="1">SYEP</option>
+                                    <option value="2">Learning Center North</option>
+                                    <option value="3">CYYA</option>
+                                    <option value="4">JUMA</option>
+                                    <option value="5">YMCA</option>
+                                    <option value="6">Friend</option>
+                                    <option value="7">Teacher</option>
+                                    <option value="8">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 otherwheredidyouhear hideit">
+                                <label for="otherwherehear" class="otherwheredidyouhearlable"> *</label>
+                                <input type="text" id="otherwherehear" class="form-control " placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="participatebefore" class="mh50">Have you participated in a pre-apprenticeship or
+                                tech training program before? *</label>
+                            <select name="participatebefore" id="participatebefore" class="form-control cboolean required">
+                                <option value="">--</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nameofprogram" class="mh50">If yes, what was the name of the program(s)?</label>
+                            <input type="text" id="nameofprogram" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="usezoom" class="mh50">Are you able to use ZOOM for online classes? *</label>
+                            <select name="usezoom" id="usezoom" class="form-control cboolean required">
+                                <option value="">--</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="haveacamera" class="mh50">Do you have a camera on your computer and are you
+                                willing to keep your camera on during class? *</label>
+                            <select name="haveacamera" id="haveacamera" class="form-control cboolean required">
+                                <option value="">--</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 10 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Program Consent</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+                            <p>If you are under the age of 18, you will need your parent or guardian's approval before
+                                submitting your application. Your parent or guardian must be present with you when
+                                filling out the agreement on the next page and will need to enter their name and date to
+                                confirm they have read and understand the materials enclosed in this application form.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="consent_under18">Are you under 18 years of age? *</label>
+                            <select name="consent_under18" id="consent_under18" class="form-control cboolean required depend">
+                                <option value="">--</option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form page 11 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Computing for All Student Code of Conduct</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+                            <p>While attending CFA during regular hours or during CFA-sponsored activities, students are
+                                expected to
+                                follow these basic rules, procedures, and expectations:</p>
+                            <ol>
+                                <li>Join the Zoom class with a laptop or desktop, camera, and microphone, ready to work
+                                    at the
+                                    designated time that class begins. If you do not have a working laptop, camera, or
+                                    microphone
+                                    or need a hotspot for internet connection, please let us know before classes start
+                                    and we can try
+                                    to help you get set up.</li>
+                                <li>Attendance and participation in class are an essential part of the work training
+                                    process. <strong>If you
+                                        know you are going to be late or absent, please text, email, or call both the
+                                        administrator and
+                                        your teacher.</strong></li>
+                                <li>Your priority at is to learn. Avoid distractions that interfere with or are
+                                    counter-intuitive to that
+                                    mission.</li>
+                                <li>Always use work-appropriate language while maintaining friendly and courteous
+                                    behavior.</li>
+                                <li>Be polite and respectful to everyone, including your peers, teachers,
+                                    administrators, support
+                                    staff, and visitors.</li>
+                                <li>Follow individual teacher instructions, rules, and expectations at all times.</li>
+                                <li>Do not become a distraction for others. Help to create a safe space where every
+                                    student has
+                                    the opportunity to maximize their potential. Critiques of student work should be
+                                    constructive,
+                                    encouraging, positive, and helpful.</li>
+                                <li>All students are free to express their own points of view and are protected from
+                                    those who
+                                    would inhibit that expression. However, freedom of speech is a right that carries
+                                    with it certain
+                                    responsibilities and its exercise is subject to limitations as to time, manner, and
+                                    place.
+                                    Computing for All reserves the right to restrict or limit speech that causes
+                                    discomfort to
+                                    students, teachers, or guests or disruption to class.</li>
+                                <li>Represent yourself in a manner that you will be proud of in years to come. Take
+                                    advantage of
+                                    the opportunities you have at here. They will help you be successful throughout your
+                                    life.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 12 -->
+                <div class="col-md-12 q-4 qdiv ">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Media and Photo Release Form</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="filling">For whom are you filling out this release form?*</label>
+                            <select name="filling" id="filling" class="form-control sdd required depend">
+                                <option value="">--</option>
+                                <option value="100000000">I am 18 years of age or older and filling out this form for myself.</option>
+                                <option value="100000001">I am filling out this form for my child who is under the age of 18.</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Form page 13 -->
+                <div class="col-md-12 q-4 qdiv">
+                    <div class="col-md-12 fheading qfieldsheading p0 under18 hideit">
+                        <h4><span class="headinnerspn">Students Under 18 Release Form</span></h4>
+                    </div>
+                    <div class="col-md-12 fheading qfieldsheading p0 over18  ">
+                        <h4><span class="headinnerspn">Applicant Media and Photo Release Form</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields under18 hideit filling_100000001">
+                        <div class="col-md-12">
+                            <p>I, [PARENT / GUARDIAN], hereby grant permission to the Computing for All (CFA) Digital
+                                Skills Youth Academy (DSYA) Program employees and agents and assigns the right to record
+                                and/or use my [CHILD]'s likeness, image, name, voice and/or statement(s) and/or work(s),
+                                as recorded by any means and in any medium (including but not limited to our website and
+                                social media) existing now or developed in the future. CFA DSYA may utilize any and all
+                                photos, audio or video recordings created directly or indirectly in connection with the
+                                CFA DSYA program without further approval by or payment to me. I also grant permission
+                                to use, edit and/or modify the photos, recordings, in any manner, form or medium, for or
+                                in connection with the program and the charitable purpose of the program. I hereby waive
+                                any and all rights that I may have to inspect or approve the photos, recordings, or the
+                                use to which they may be applied, as long as they are used in the publicizing,
+                                showcasing, marketing and/or promotion of the CFA Digital Skills Youth Academy Program.
+                            </p>
+                            <p>By entering your full name under the PARENT / GUARDIAN field below, your child's full
+                                name under the CHILD field below, and entering today's DATE, you are agreeing to the
+                                terms and conditions detailed above.</p>
+                        </div>
+                        <div class="col-md-6">
+
+                            <label for="parent3">PARENT / GUARDIAN *</label>
+                            <input type="text" id="parent3" class="form-control " placeholder="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="child3">Child *</label>
+                            <input type="text" id="child3" class="form-control " placeholder="">
+                        </div> 
+                        <div class="col-md-6">
+                            <label for="datesigned">Date Signed *</label>
+                            <input type="date" id="datesigned" class="form-control " placeholder="">
+                        </div>
+                    </div>
+                    <div class="col-md-12 p0 qfields over18  filling_100000000">
+                        <div class="col-md-12">
+                            <p>I, [APPLICANT], hereby grant permission to the Computing for All (CFA) Digital Skills
+                                Youth Academy (DSYA) Program employees and agents and assigns the right to record and/or
+                                use my likeness, image, name, voice and/or statement(s) and/or work(s), as recorded by
+                                any means and in any medium (including but not limited to our website and social media)
+                                existing now or developed in the future. CFA DSYA may utilize any and all photos, audio
+                                or video recordings created directly or indirectly in connection with the CFA DSYA
+                                program without further approval by or payment to me. I also grant permission to use,
+                                edit and/or modify the photos, recordings, in any manner, form or medium, for or in
+                                connection with the program and the charitable purpose of the program. I hereby waive
+                                any and all rights that I may have to inspect or approve the photos, recordings, or the
+                                use to which they may be applied, as long as they are used in the publicizing,
+                                showcasing, marketing and/or promotion of the CFA Digital Skills Youth Academy Program.
+                            </p>
+                            <p>By entering your full name under the APPLICANT field below and entering today's DATE, you
+                                are agreeing to the terms and conditions detailed above.</p>
+                            <p>By entering your name below you are stating that you have read all enclosed materials
+                                concerning the DSYA Program and that all statements you have made in the application are
+                                true to the best of your knowledge. If accepted, you will be committed to attending
+                                classes and meeting all program requirements.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="applicant3">Applicant *</label>
+                            <input type="text" id="applicant3" class="form-control " placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <!-- Form page 14 -->
+                <div class="col-md-12 q-4 qdiv submitpage ">
+                    <div class="col-md-12 fheading qfieldsheading p0">
+                        <h4><span class="headinnerspn">Digital Signature</span></h4>
+                    </div>
+                    <div class="col-md-12 p0 qfields">
+                        <div class="col-md-12">
+                            <div id="selectedimagebox" class="col-md-12"></div>
+                            <button class="virtualsign90" style="margin-top: 15px;margin-bottom:15px">Click here for Virtual Sign</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 p0">
+                <div class="text-center">
+                    <span class="pageno">Page <span class="activepageno">1</span> of 14</span>
+                </div>
+                <div class="navbtns">
+                    <button class="btn btn-info backbtn formbtn"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                            height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z" />
+                        </svg> Back</button>
+                    <button class="btn btn-info nextbtn formbtn"> Next <svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right"
+                            viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8zm-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5z" />
+                        </svg></button>
+                    <button class="btn btn-info submitbtn formbtn hideit" onclick="confirmSubmit()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Virtual Signature</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'Webapi SafeAjax' %}
+
+{% include 'jSignature.min.js' %}
+<script>
+    console.log("Version: 1.0.1");
+    $(document).ready(function () {
+        $("#signature").jSignature();
+
+        setTimeout(function () {
+            $(".signaturebox").addClass("hideit");
+        }, 1400);
+
+        $(".virtualsign90").click(function () {
+            $(".signaturebox").removeClass("hideit");
+            $(".signaturebox").css("visibility", "visible");
+            $(".signaturebox").css("height", "auto");
+            $(".cfaenrollmentform").addClass("hideit");
+            $(".signaturebox").removeClass("hideit");
+        });
+    });
+
+    function signinit() { };
+
+    function loadcanvas() {
+        $("#signature").html("");
+        $("#signature").jSignature();
+    };
+
+    function reset() {
+        var $sigdiv = $("#signature");
+        $sigdiv.jSignature("reset");
+    };
+
+    function selectit() {
+        $(".signaturebox").css("visibility", "hidden");
+        $(".signaturebox").css("height", "20px");
+        $(".cfaenrollmentform").removeClass("hideit");
+        $("#selectedimagebox").html("");
+        /////////////
+        var $sigdiv = $("#signature");
+        var datapair = $sigdiv.jSignature("getData", "svgbase64");
+        var i = new Image()
+        i.src = "data:" + datapair[0] + "," + datapair[1]
+        $(i).appendTo($("#selectedimagebox"))
+    };
+</script>
+
+<script>
+    //let formFieldsData;
+    try {
+        var formheight = 200;
+        $(document).ready(function () {
+
+            setTimeout(function () {
+                $(".preloader").addClass("hideit");
+            }, 1500);
+
+            console.log("document is ready");
+            $(".qfields").css("height", window.innerHeight - 320);
+
+            //getContact();
+
+            setInterval(function () {
+                $(".qfields").css("height", window.innerHeight - 320);
+            }, 2000);
+
+            $(".continuebtn").click(function () {
+                //$("#signature").jSignature();
+                $(".qform").removeClass("hideit");
+                $("#intcont").addClass("hideit");
+                $(".preloader").removeClass("hideit");
+                setTimeout(function () {
+                    $(".preloader").addClass("hideit");
+                }, 1800);
+            });
+
+            $(".closebtn").click(function () {
+                if (confirm("Are you sure you want to Close the From?")) {
+                    $(".qform").addClass("hideit");
+                    $("#intcont").removeClass("hideit");
+                    $(".preloader").removeClass("hideit");
+                    setTimeout(function () {
+                        $(".preloader").addClass("hideit");
+                    }, 1800);
+                } else {
+
+                }
+            });
+
+            if ($(".q-1").hasClass("active")) {
+                $(".backbtn").addClass("hideit");
+            } else {
+                $(".backbtn").removeClass("hideit");
+            }
+
+            $(".nextbtn").click(function () {
+                //console.log("next clicked");
+                $(".qcont").removeClass("animationnext");
+                $(".qcont").removeClass("animationback");
+                checkRequired();
+            });
+
+            $(".backbtn").click(function () {
+                $(".qcont").removeClass("animationnext");
+                $(".qcont").removeClass("animationback");
+                console.log("back clicked");
+                var nextq = $(".qdiv.active").prev();
+                $(".qdiv.active").removeClass("active");
+                //$(".qcont").addClass("animationback");
+                $(nextq).addClass("active");
+
+                manageNavBtns("back");
+            });
+
+            $("#wherehear").change(function () {
+                if ($(this).val() == "6") {
+                    $(".otherwheredidyouhear").removeClass("hideit");
+                    $(".otherwheredidyouhearlable").html("Friend*");
+                    $("#otherwherehear").addClass("required");
+                }
+                else if ($(this).val() == "7") {
+                    $(".otherwheredidyouhear").removeClass("hideit");
+                    $(".otherwheredidyouhearlable").html("Teacher*");
+                    $("#otherwherehear").addClass("required");
+                }
+                else if ($(this).val() == "8") {
+                    $(".otherwheredidyouhear").removeClass("hideit");
+                    $(".otherwheredidyouhearlable").html("Other*");
+                    $("#otherwherehear").addClass("required");
+                }
+                else {
+                    $(".otherwheredidyouhear").addClass("hideit");
+                    $("#otherwherehear").removeClass("required");
+                    $("#otherwherehear").val("");
+                }
+            });
+
+            $("#stydenttype").change(function () {
+                if ($(this).val() == "100000000") {
+                    $(".schoolinfo").removeClass("hideit");
+                    $(".collegeinfo").addClass("hideit");
+                    addRemoveRequired(".stydenttype_100000000", "add");
+                    addRemoveRequired(".stydenttype_100000001", "remove");
+                }
+                else if ($(this).val() == "100000001") {
+                    $(".schoolinfo").addClass("hideit");
+                    $(".collegeinfo").removeClass("hideit");
+                    addRemoveRequired(".stydenttype_100000000", "remove");
+                    addRemoveRequired(".stydenttype_100000001", "add");
+                }
+                else {
+                    $(".schoolinfo").addClass("hideit");
+                    $(".collegeinfo").addClass("hideit");
+                    addRemoveRequired(".stydenttype_100000000", "remove");
+                    addRemoveRequired(".stydenttype_100000001", "remove");
+                }
+            });
+
+            $("#haveajob").change(function () {
+                if ($(this).val() == 'true') {
+                    $(".ihavejob").removeClass("hideit");
+                    addRemoveRequired(".haveajob_true", "add");
+                    $(".qdiv.active .qfields").animate({
+                        scrollTop: $(
+                            '.qdiv.active .qfields').get(0).scrollHeight
+                    }, 3000);
+                }
+                else {
+                    $(".ihavejob").addClass("hideit");
+                    addRemoveRequired(".haveajob_true", "remove");
+                }
+            });
+
+            $("#consent_under18").change(function () {
+                if ($(this).val() == 'true') {
+                    $(".under18_consentSigndiv").removeClass("hideit");
+                    addRemoveRequired(".consent_under18_true", "add");
+                }
+                else {
+                    $(".under18_consentSigndiv").addClass("hideit");
+                    addRemoveRequired(".consent_under18_true", "remove");
+                }
+            });
+
+            $("#filling").change(function () {
+                if ($(this).val() == '100000000') {
+                    $(".under18").addClass("hideit");
+                    $(".over18").removeClass("hideit");
+                    addRemoveRequired(".filling_100000000", "add");
+                    addRemoveRequired(".filling_100000001", "remove");
+                }
+                else if ($(this).val() == '100000001') {
+                    $(".under18").removeClass("hideit");
+                    $(".over18").addClass("hideit");
+                    addRemoveRequired(".filling_100000001", "add");
+                    addRemoveRequired(".filling_100000000", "remove");
+                }
+                else {
+                    $(".under18").removeClass("hideit");
+                    $(".over18").removeClass("hideit");
+                    addRemoveRequired(".filling_100000000", "remove");
+                    addRemoveRequired(".filling_100000001", "remove");
+                }
+            });
+
+            $("#under18").change(function () {
+                if ($(this).val() == 'true') {
+                    $(".under18_section").removeClass("hideit");
+                    addRemoveRequired(".under18_section", "add");
+
+                }
+                else {
+                    $(".under18_section").addClass("hideit");
+                    addRemoveRequired(".under18_section", "remove");
+                }
+            });
+
+            $("input.required, select.required, textarea.required").change(function () {
+                if ($(this).val() == "") {
+                    $(this).addClass("error");
+                }
+                else {
+                    $(this).removeClass("error");
+                }
+            });
+
+            $("input.depend, select.depend").change(function () {
+                //var dependent = $(this).attr("id")+"_"+$(this).val();
+                //if(("."+dependent).hasClass("hide"))
+                // {
+                //$("."+dependent+" input, ."+dependent+" select").removeClass("required");
+                // }
+                // else
+                // {
+                //$("."+dependent+" input, ."+dependent+" select").addClass("required");
+                //  }
+
+            });
+        });
+    }
+    catch (ex) {
+        alert(ex);
+    }
+
+    function addRemoveRequired(identifier, actiontype) {
+        if (actiontype == "add") {
+            $(identifier + " input, " + identifier + " select").each(function () {
+                $(this).addClass("required");
+            })
+        }
+        else if (actiontype == "remove") {
+            $(identifier + " input, " + identifier + " select").each(function () {
+                $(this).removeClass("required");
+            })
+        }
+    }
+
+    function scrollUpQFields() {
+        $(".qdiv.active .qfields").animate({
+            scrollTop: 0
+        }, 2200);
+    }
+
+    function updatePageNo() {
+        var count = 0;
+        $(".qform .qdiv").each(function () {
+            count = count + 1;
+            if ($(this).hasClass("active")) {
+                console.log("page no " + count);
+                $(".activepageno").text(count);
+            }
+        })
+    }
+
+    function manageNavBtns(key) {
+        try {
+            updatePageNo();
+            scrollUpQFields();
+            submitPageBackBtn();
+            applyAnimation(key);
+            if ($(".q-1").hasClass("active")) {
+                $(".backbtn").addClass("hideit");
+            }
+            else {
+                $(".backbtn").removeClass("hideit");
+            }
+            if ($(".submitpage").hasClass("active")) {
+                $(".nextbtn").addClass("hideit");
+                $(".submitbtn").removeClass("hideit");
+            }
+            else {
+                $(".nextbtn").removeClass("hideit");
+                $(".submitbtn").addClass("hideit");
+            }
+        }
+        catch (ex) {
+            alert(ex);
+        }
+    }
+
+    function applyAnimation(key) {
+        if (key == "next") {
+            $(".qcont").addClass("animationnext");
+        }
+        else if (key == "back") {
+            $(".qcont").addClass("animationback");
+        }
+    }
+
+    function submitPageBackBtn() {
+        if ($(".qdiv.active").hasClass("submitpage")) {
+            $(".backbtn").addClass("submitpagebackbtn");
+        }
+        else {
+            $(".backbtn").removeClass("submitpagebackbtn");
+        }
+    }
+    
+    function checkRequired() {
+        var validation = true;
+        $(".qdiv.active input.required, .qdiv.active select.required, .qdiv.active textarea.required").each(function () {
+            //console.log("Value = "+$(this).val());
+            if ($(this).val() == "" || $(this).val() == undefined || $(this).val() == null) {
+                validation = false;
+                //console.log("Value = "+$(this).val());
+                $(this).addClass("error");
+            }
+        })
+
+
+        if (validation) {
+            var nextq = $(".qdiv.active").next(".qdiv");
+            //var nextval = 
+            //console.log("next length => "+nextq.length);
+            //console.log("Validation true - Next Q => "+JSON.stringify(nextq));
+            if (nextq.length > 0 && nextq != null && nextq != "" && nextq != undefined) {
+                $(".qdiv.active").removeClass("active");
+                $(nextq).addClass("active");
+                manageNavBtns("next");
+            }
+
+        }
+        else {
+            alert("Please fill all required fields");
+        }
+    }
+    //p22
+    function makeRandString(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
+    function confirmSubmit() {
+        try {
+            $(".preloader").removeClass("hideit");
+
+            var validation = true;
+            if (document.getElementById('selectedimagebox').children.length < 1) {
+                validation = false;
+                throw "Signature Required";
+            }
+            $(".qform input.required, .qform select.required, .qform textarea.required").each(function () {
+                if ($(this).val() == "") {
+                    $(this).addClass("error");
+                    validation = false;
+                }
+            });
+            if (validation == false) {
+                throw "Sorry! some required fields are empty, please fill all required fields";
+            }
+            if (confirm("Are you sure you want to Submit the Application?")) {
+                checkExistedContact();
+            }
+            else {
+
+            }
+        }
+        catch (ex) {
+            alert(ex);
+            $(".preloader").addClass("hideit");
+        }
+    }
+
+    function checkExistedContact() {
+        console.log("Checking existing contact..");
+        var url = "/_api/contacts?$select=firstname,contactid&$filter=emailaddress1 eq '" + $("#email").val() + "'";
+        webapi.safeAjax({
+            type: "GET",
+            url: url,
+            contentType: "application/json",
+            success: function (res) {
+                console.log("Get Contact in Success");
+                if (res.value.length > 0) {
+                    console.log("Email is " + $("#email").val());          
+                    updateContact(res.value[0]["contactid"]);
+                }
+                else {
+                    submitApplication();
+                }
+                //$(".loader-container").addClass("hideit");
+            },
+            error: function (res, status, xhr) {
+                console.log("Error in finding contact");
+                console.log(res.responseText); 
+                createErrorFormLog(getFormData(), res.responseText);
+            }
+        })
+    }
+
+    function getFormData() {
+
+        var formFieldsData = {};
+        try {
+            
+            formFieldsData = {
+                cfa_form_under18: ($("#under18").val() == "true" ? true : false),
+                firstname: $("#fname").val(),
+                lastname: $("#lname").val(),
+                cfa_form_othername: $("#othername").val(),
+                emailaddress1: $("#email").val(),
+                mobilephone: $("#phone").val(),
+                birthdate: ($("#dob").val() == "" ? null : $("#dob").val()),
+                address1_city: $("#city").val(),
+                address1_stateorprovince: $("#state").val(),
+                address1_postalcode: $("#zipcode").val(),
+                address1_line1: $("#address").val(),
+                cr4aa_namesofparentsguardians: $("#parentname").val(),
+                cr4aa_parentsguardiansphonenumbers: $("#parentphone").val(),
+                cr4aa_parentsguardiansemailaddresses: $("#parentemail").val(),
+                cr4aa_addressesofparentsguardians: $("#parentaddress").val(),
+
+                cfa_form_levelofeducation: ($("#education").val() == "" ? null : $("#education").val()),
+                cfa_race: ($("#race").val() == "" ? null : $("#race").val()),
+                cfa_hispanic: ($("#hispanic").val() == "" ? null : $("#hispanic").val()),
+                gendercode: ($("#gender").val() == "" ? null : $("#gender").val()),
+                cfa_disability: $("#disability").val() == "" ? null : $("#disability").val(),
+                cfa_veteran: $("#veteran").val() == "" ? null : $("#veteran").val(),
+
+                cfa_form_cfadsyaprogram: ($("#cfaprogram").val() == "" ? null : $("#cfaprogram").val()), //check this
+                cfa_form_willyouhighschool: ($("#stydenttype").val() == "" ? null : $("#stydenttype").val()),
+
+                
+
+                cfa_form_work1employername: $("#employername1").val(),
+                cfa_form_workexp1position: $("#position1").val(),
+                cfa_form_workexp1datesofemp: $("#employmentdates1").val(),
+                cfa_form_workexp1contactinfo: $("#contactinfo1").val(),
+
+                cfa_form_work2employername: $("#employername2").val(),
+                cfa_form_workexp2position: $("#position2").val(),
+                cfa_form_workexp2datesofemp: $("#employmentdate2").val(),
+                cfa_form_workexp2contactinfo: $("#contactinfo2").val(),
+                
+                cfa_form_work3employername: $("#employername3").val(),
+                cfa_form_workexp3position: $("#position3").val(),
+                cfa_form_workexp3datesofemp: $("#employmentdate3").val(),
+                cfa_form_workexp3contactinfo: $("#contactinfo3").val(),
+                
+                cr4aa_havejob: ($("#haveajob").val() == "true" ? true : false),
+                jobtitle: $("#jobtitle").val(),
+                cr4aa_joblocation: $("#joblocation").val(),
+                cr4aa_jobschedule: $("#jobschedule").val(),
+
+                cfa_form_planschoolcollege: ($("#attendorplancollege").val() == "" ? null : $("#attendorplancollege").val()),
+                new_wheredoyouplantoapply: $("#whereapply").val(),
+                cfa_form_whatcareersinterested: $("#careerinterested").val(),
+                new_liketodoinyoursparetime: $("#sparetimeactivity").val(), //change to 4000
+                cfa_form_dsyawillassist: $("#howdsyaassistyou").val(),
+                new_youaregoodat: $("#goodat").val(),
+                new_computerability: ($("#rateyourability").val() == "" ? null : $("#rateyourability").val()),
+                new_takenatechnoloycourseortraining: ($("#takenatechcourse").val() == "true" ? true : false),
+                cr4aa_coursename: $("#nameofcourse").val(),
+                cfa_form_trainingschoolname: $("#nameofschool").val(),
+                cr4aa_doyouhaveacomputerathome: ($("#haveapc").val() == "true" ? true : false),
+                new_internetaccessathome: ($("#haveinternet").val() == "true" ? true : false), 
+                new_usecomputer: ($("#oftencomputer").val() == "" ? null : $("#oftencomputer").val()),
+                new_usetheinternet: ($("#ofteninternet").val() == "" ? null : $("#ofteninternet").val()),
+                
+                
+                new_internet: ($("#internetetc").val() == "" ? null : $("#internetetc").val()),
+                cr4aa_emailhotmailyahoomailgmailetc: ($("#emailetc").val() == "" ? null : $("#emailetc").val()),
+                cr4aa_microsoftofficewordexceletcpowerpoint: ($("#msoffice").val() == "" ? null : $("#msoffice").val()),
+                cr4aa_webdesignhtmlcssjavascript: ($("#webdesign").val() == "" ? null : $("#webdesign").val()),
+                new_digitalmedia: ($("#digitalmedia").val() == "" ? null : $("#digitalmedia").val()),
+                new_graphicdesign: ($("#graphicdesign").val() == "" ? null : $("#graphicdesign").val()),
+                cr4aa_smartphonesortablets: ($("#phoneortablet").val() == "" ? null : $("#phoneortablet").val()),
+                cfa_form_codinginhtml: ($("#codeinhtml").val() == "" ? null : $("#codeinhtml").val()),
+                cfa_form_codinginjavascript: ($("#codeinjs").val() == "" ? null : $("#codeinjs").val()), 
+                cr4aa_softwareinstallation: ($("#softinstall").val() == "" ? null : $("#softinstall").val()),
+                cr4aa_pcorappletroubleshooting: ($("#pctroubleshoot").val() == "" ? null : $("#pctroubleshoot").val()),
+                cr4aa_networkadministration: ($("#networkadmin").val() == "" ? null : $("#networkadmin").val()),
+                cr4aa_blogsdiscussiongroupspodcasting: ($("#blogsetc").val() == "" ? null : $("#blogsetc").val()),
+                cr4aa_videoeditingsoftware: ($("#editsoftware").val() == "" ? null : $("#editsoftware").val()),
+                cfa_form_othertechskill: $("#otherskills").val(),
+
+
+                new_futuregoals: $("#futuregoals").val(),
+                new_outofthisprogram: $("#hopetoprogram").val(),
+                new_stipendyouearn: $("#stipendplan").val(),
+
+
+                cfa_form_wheredidyouheardsya: ($("#wherehear").val() == "" ? null : $("#wherehear").val()),
+                cfa_form_otherwhereyouheardsya: $("#otherwherehear").val(),
+                new_preapprenticeshiportechtraining: ($("#participatebefore").val() == "true" ? true : false),
+                cr4aa_programname: $("#nameofprogram").val(),
+                cfa_form_usezoom: ($("#usezoom").val() == "true" ? true : false),
+                new_cameraonduringclass: ($("#haveacamera").val() == "true" ? true : false),
+
+
+                cfa_form_consentunder18: ($("#consent_under18").val() == "true" ? true : false),
+
+
+                cfa_form_forwhomareyoufilling: ($("#filling").val() == "" ? null : $("#filling").val()),
+                
+                //not useable
+                //cfa_form_agreementfirstname: $("#firstname2").val(),
+                //cfa_form_agreementlastname: $("#lastname2").val(),
+                //cfa_form_agreementguardianname: $("#parentname2").val(),
+
+
+                cfa_form_guardiansignature: $("#parent3").val(),
+                cfa_form_childsignature: $("#child3").val(),
+                cfa_form_datesigned: ($("#datesigned").val() == "" ? null : $("#datesigned").val()),
+                cfa_form_applicantsignature: $("#applicant3").val(),
+
+
+                mshied_contacttype: "494280011", //contact type = student
+                //cfa_enrollmentstatus: 100000004, //pending
+                //cfa_importid: "DSYA Enrollment Form",
+                cfa_enrollmentform: true,
+                cfa_latestcfaformsubmission: "DSYA Enrollment Form",
+                cfa_formsubmissionemailtrigger: new Date().toISOString() + " - " + makeRandString(10)
+            }; 
+
+            if(($("#stydenttype").val() == "100000000")) {
+                //Hight School Student
+                formFieldsData.cr4aa_nameofhighschool = $("#nameofhighschool").val();
+                formFieldsData.cr4aa_gradelevel = $(".stydenttype_100000000 #gradeinschool").val();
+                formFieldsData.cfa_form_expyearofgrad = $(".stydenttype_100000000 #yearofgrad").val();
+                formFieldsData.cr4aa_favoriteclasses = $(".stydenttype_100000000 #favclass").val();
+                formFieldsData.cr4aa_languagesspoken = $(".stydenttype_100000000 #languages").val();
+            }
+            else if (($("#stydenttype").val() == "100000001")) {
+                //College Student
+                formFieldsData.cr4aa_nameofcollegeortradeschool = $("#nameofcollege").val();
+                formFieldsData.cfa_form_expyearofgrad = $(".stydenttype_100000001 #yearofgrad").val();
+                formFieldsData.cr4aa_favoriteclasses = $(".stydenttype_100000001 #favclass").val();
+                formFieldsData.cr4aa_languagesspoken = $(".stydenttype_100000001 #languages").val();
+            }
+        }
+        catch (ex){
+            console.log('Exception in getFormData');
+            console.log(ex);
+        }
+
+        return formFieldsData;
+    }
+
+    function submitApplication() {
+        try {
+            console.log("Submit Called");
+
+            var formFieldsData =  getFormData();  
+            formFieldsData.cfa_enrollmentstatus = "100000004"; //pending
+            formFieldsData.cfa_importid = "DSYA Enrollment Form";
+ 
+            console.log("Got Form data");
+
+            $(".preloader").removeClass("hideit");
+            debugger;
+            webapi.safeAjax({
+                type: "POST",
+                url: "/_api/contacts",
+                contentType: "application/json",
+                data: JSON.stringify(formFieldsData),
+                success: function (res, status, xhr) {
+                    console.log("entityID Of Applicant: " + xhr.getResponseHeader("entityid"));
+                    var entityid = xhr.getResponseHeader("entityid");
+                    attachSign(entityid);
+                },
+                error: function (res, status, xhr) {
+                    console.log("Error in creating");
+                    console.log(res.responseText);
+                    createErrorFormLog(formFieldsData, res.responseText);
+                }
+            });
+            setTimeout(function () {
+                $(".preloader").addClass("hideit");
+            }, 120000);
+        }
+        catch (ex) {
+            alert("Error => " + JSON.stringify(ex));
+        }
+    }
+    function updateContact(contactid) {
+        try {
+            $(".preloader").removeClass("hideit");
+
+            var formFieldsData =  getFormData();
+
+            webapi.safeAjax({
+                type: "PATCH",
+                url: "/_api/contacts(" + contactid + ")",
+                contentType: "application/json",
+                data: JSON.stringify(formFieldsData),
+                success: function (res, status, xhr) {
+                    console.log("entityID Of Applicant: " + xhr.getResponseHeader("entityid"));
+                    var entityid = xhr.getResponseHeader("entityid");
+                    attachSign(entityid);
+                },
+                error: function (res, status, xhr) {
+                    console.log('Error in udpating');
+                    console.log(res.responseText); 
+                    createErrorFormLog(formFieldsData, res.responseText);
+                }
+            });
+            setTimeout(function () {
+                $(".preloader").addClass("hideit");
+            }, 120000);
+        }
+        catch (ex) {
+            alert("Error => " + JSON.stringify(ex));
+        }
+    }
+
+    function createErrorFormLog(formBody, error) {
+        console.log("************************");  
+        let tableProperties = {
+            cfa_name : ((new Date()).toISOString()),
+            cfa_formbody: ((formBody) ? JSON.stringify(formBody) : null),
+            cfa_error: ((error) ? JSON.stringify(error) : null)
+        }
+        webapi.safeAjax({
+            type: "POST",
+            url: "/_api/cfa_formissueses", //
+            contentType: "application/json",
+            data: JSON.stringify(tableProperties),
+            success: function (res, status, xhr) {
+                window.open('/thank-you', "_self");
+            },
+            error: function (res, status, xhr) {
+                console.log("Form issues error");
+                console.log(res);
+                alert("Error: Please copy the below error and send to sfaizullah@computingforall.org, mbilal@computingforall.org \n =============\n  " + JSON.stringify(res.responseText));
+            }
+        });
+    }
+
+    function attachSign(id) {
+        var $sigdiv = $("#signature");
+        var datapair = $sigdiv.jSignature("getData", "svgbase64");
+        console.log("datapair =" + datapair[1]);
+        console.log("contact id =" + id);
+        webapi.safeAjax({
+            type: "POST",
+            url: "/_api/annotations", //TODO: check the URL is right? 
+            contentType: "application/json",
+            data: JSON.stringify({
+                "objectid_contact@odata.bind": "/contacts(" + id + ")",
+                "objecttypecode": 'contact',
+                "documentbody": datapair[1],
+                "isdocument": true,
+                "filename": $("#fname").val() + " " + $("#fname").val() + " - Signature.svg",
+                "mimetype": "image/svg+xml",
+                "subject": $("#fname").val() + " " + $("#fname").val() + " - Signature"
+            }),
+            success: function (res, status, xhr) {
+                console.log("entityID of Annotation: " + xhr.getResponseHeader("entityid"));
+                console.log("Signature Uploaded successfully as Notes in Contact");
+                $(".preloader").addClass("hideit");
+                window.open('/thank-you', "_self");
+            }
+        });
+    }
+</script>
