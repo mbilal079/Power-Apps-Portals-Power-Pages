@@ -1,0 +1,113 @@
+<!-- Power Pages Basic APIs -->
+
+<!-- Get Records API -->
+
+var columns = "firstname,lastname"; // mention columns here or put * for all
+var url = "/_api/contacts?$select="+columns+"&$filter=firstname eq 'Muhammad'";
+webapi.safeAjax({
+  type: "GET",
+  url: url,
+  contentType: "application/json",
+  success: function(res) {
+    //response here
+    console.log("Success: "+res.value.length);
+    for (var i = 0; i < res.value.length; i++) {
+      console.log("Name "+res.value[i]["firstname"]);
+    } 
+  },
+  error: function(res){
+    console.log("Error: "+JSON.stringify(res));
+    alert("Sorry! Something went wrong, please try again later, "+JSON.stringify(xhr));
+}
+})
+
+<!-- Create API -->
+
+webapi.safeAjax({
+  type: "POST",
+  url: "/_api/incidents",
+  contentType: "application/json",
+  data: JSON.stringify({
+    //your attributes here
+    "title" : $("#title").val(),
+    "productid@odata.bind" : $("#product").val() == "" ? null : "/products("+$("#product").val()+")",
+    "caseorigincode" : ($("#origin").val() == "" ? null : $("#origin").val()),
+    "casetypecode" : ($("#casetype").val() == "" ? null : $("#casetype").val()),
+    "prioritycode" : ($("#priority").val() == "" ? null : $("#priority").val()),
+    "description" : $("#description").val(),
+    "primarycontactid@odata.bind" :  "/contacts({{user.id}})",
+    "customerid_account@odata.bind": "/accounts("+parentaccountid+")"
+  }),
+  success: function(res, status, xhr) {
+      console.log("entityID Of Case: " + xhr.getResponseHeader("entityid"));
+      alert("Case created successfully");
+      location.reload();
+  },
+  error: function(res){
+      console.log("Error: "+JSON.stringify(res));
+      alert("Sorry! Something went wrong, please try again later, "+JSON.stringify(res));
+  }
+});
+
+<!-- Update API -->
+
+webapi.safeAjax({
+  type: "PATCH",
+  url: "/_api/contacts(id of the record)",
+  contentType: "application/json",
+  data: JSON.stringify({
+    //your attributes here
+    "firstname" : "Muhammad",
+    "parentcustomerid_account@odata.bind" : "/accounts("+accountid+")"
+      
+  }),
+  success: function(res, status, xhr) {
+      console.log("contact updates successfully");
+      CreateCase(accountid);
+  },
+  error: function(res){
+      $(".loadercontainer").addClass("hideit");
+      alert("Sorry! Something went wrong, please try again later");
+  }
+});
+
+<!-- Delete API -->
+
+webapi.safeAjax({
+  type: "DELETE",
+  url: "/_api/incidents("id of the record")",
+  contentType:"application/json",
+  success: function(res) {
+      console.log(res);
+      alert("Deleted successfully");
+      location.reload();
+  },
+  error: function(res){
+    console.log("Error: "+JSON.stringify(res));
+    alert("Sorry! Something went wrong, please try again later, "+JSON.stringify(res));
+}
+});
+
+<!-- Create an Annotation (Notes) -->
+
+webapi.safeAjax({
+  type: "POST",
+  url: "/_api/incidents",
+  contentType: "application/json",
+  data: JSON.stringify({
+    "notetext": "Screenshot attached",
+    "subject": "Attachment",
+    "filename": file.name,
+    "mimetype": file.type,
+    "documentbody": base64str
+  }),
+  success: function(res, status, xhr) {
+      console.log("entityID Of Case: " + xhr.getResponseHeader("entityid"));
+      alert("Case created successfully");
+      location.reload();
+  },
+  error: function(res){
+      console.log("Error: "+JSON.stringify(res));
+      alert("Sorry! Something went wrong, please try again later, "+JSON.stringify(xhr));
+  }
+});
