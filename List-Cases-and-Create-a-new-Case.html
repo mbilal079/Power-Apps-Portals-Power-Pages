@@ -1,0 +1,573 @@
+{% if user %}
+<style>
+    .mt30{
+        margin-top: 30px;
+    }
+    .hideit{
+        display: none;
+    }
+    .error{
+        border: 2px solid red !important;
+    }
+    ul.nav.nav-pills li.active span {
+    color: white !important;
+}
+div#captcha {
+    float: left;
+    width: 208px;
+    font-size: 20px;
+    height: 50px;
+    text-decoration: line-through;
+    font-style: italic;
+    font-weight: bold;
+    color: gray;
+    letter-spacing: 5px;
+}
+    .loadercontainer{
+        background: #464a59;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999999 !important;
+    }
+    .loadermain{
+        position: relative;
+    left: 50%;
+    top: 40%;
+    height: 5em;
+    width: 5em;
+    /* outline: 2px solid #6685ff; */
+    /* -webkit-animation: loader--spinning 1.25s infinite ease; */
+    animation: loader--spinning 1.25s infinite ease;
+    }
+</style>
+<style>
+    /* loader css */
+    .lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #fff;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap.min.css">
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap.min.js"></script>
+<script>
+    (function(webapi, $) {
+        function safeAjax(ajaxOptions) {
+          var deferredAjax = $.Deferred();
+          shell.getTokenDeferred().done(function(token) {
+            // add headers for ajax
+            if (!ajaxOptions.headers) {
+              $.extend(ajaxOptions, {
+                headers: {
+                  "__RequestVerificationToken": token
+                }
+              });
+            } else {
+              ajaxOptions.headers["__RequestVerificationToken"] = token;
+            }
+            $.ajax(ajaxOptions)
+              .done(function(data, textStatus, jqXHR) {
+                validateLoginSession(data, textStatus, jqXHR, deferredAjax.resolve);
+              }).fail(deferredAjax.reject); //ajax
+          }).fail(function() {
+            deferredAjax.rejectWith(this, arguments); // on token failure, pass the token ajax and args
+          });
+          return deferredAjax.promise();
+        }
+        webapi.safeAjax = safeAjax;
+      })(window.webapi = window.webapi || {}, jQuery)
+    </script>
+    {% fetchxml CasesList %}
+    <fetch>
+        <entity name="incident">
+            <attribute name="entityimage_url"/>
+            <attribute name="ticketnumber"/>
+            <attribute name="prioritycode"/>
+            <attribute name="title"/>
+            <attribute name="customerid"/>
+            <attribute name="statuscode"/>
+            <attribute name="createdon"/>
+            <attribute name="caseorigincode"/>
+            <attribute name="statecode"/>
+            <order attribute="title" descending="false"/>
+            <attribute name="incidentid"/>
+            <filter type="and">
+                <condition attribute="primarycontactid" operator="eq" value="{{user.id}}" />
+                <!-- <condition attribute="statecode" operator="eq" value="0"/> -->
+            </filter>
+        </entity>
+    </fetch>
+    {% endfetchxml %}
+    {% fetchxml products %}
+    <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false" no-lock="false">
+        <entity name="product">
+            <attribute name="parentproductid"/>
+            <attribute name="name"/>
+            <order attribute="name" descending="false"/>
+            <attribute name="productid"/>
+            <filter type="and">
+                    <condition attribute="statecode" operator="eq" value="0"/>
+                    <condition attribute="productstructure" operator="eq" value="1"/>
+                
+            </filter>
+        </entity>
+    </fetch>
+    {% endfetchxml %}
+<div class="row sectionBlockLayout text-left" style="display: flex; flex-wrap: wrap; margin: 0px; min-height: auto; padding: 8px;">
+    <div class="container" style="display: flex; flex-wrap: wrap;">
+        <div class="col-md-12 columnBlockLayout" style="flex-grow: 1; display: flex; flex-direction: column; min-width: 250px; word-break: break-word; padding: 16px; margin: 60px 0px;">
+            <div class="row mainrow">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <ul role="tablist" class="nav nav-pills">
+                                
+                            <li class="active">
+                                <a role="tab" data-toggle="pill" href="#active">
+                                <span class="text-primary">
+                                    My Active Cases
+                                </span>
+                                </a>
+                            </li>
+                                
+                            <li class="">
+                                <a role="tab" data-toggle="pill" href="#resolved">
+                                <span class="text-primary">
+                                    My Resolved Cases
+                                </span>
+                                </a>
+                            </li>
+                            
+                            </ul>
+                        </div>
+                    <div class="col-md-6 text-right">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#createnewcase">Create New Case</button>
+                    </div>
+                </div>
+                <div class="col-md-12 caseslist mt30" >
+                    <div class="row tab-content">
+                        <div id="active" role="tabpanel" class="tab-pane fade active in">
+                            <table class="table casetbl" id="activecaselist" style="width: 100% !important;">
+                                <thead>
+                                    <tr>
+                                        <td>Case Title</td>
+                                        <td>Case Number</td>
+                                        <td>Status</td>
+                                        <td>Created On</td>
+                                        <td>Priority</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in CasesList.results.entities %}
+                                    {% if row.statecode.value == 0 %}
+                                    <tr>
+                                        <td>{{row.title}}</td>
+                                        <td>{{row.ticketnumber}}</td>
+                                        <td>{{row.statecode.label}}</td>
+                                        <td>{{row.createdon}}</td>
+                                        <td>{{row.prioritycode.label}}</td>
+                                        <td><a class="casedell" id="" href="javascript:void(0)" onclick="DeleteCase('{{row.incidentid}}')">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="resolved" role="tabpanel" class="tab-pane fade in">
+                            <table class="table casetbl" id="resolvedcaselist" style="width: 100% !important;">
+                                <thead>
+                                    <tr>
+                                        <td>Case Title</td>
+                                        <td>Case Number</td>
+                                        <td>Status</td>
+                                        <td>Created On</td>
+                                        <td>Priority</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in CasesList.results.entities %}
+                                    {% if row.statecode.value == 1 %}
+                                    <tr>
+                                        <td>{{row.title}}</td>
+                                        <td>{{row.ticketnumber}}</td>
+                                        <td>{{row.statecode.label}}</td>
+                                        <td>{{row.createdon}}</td>
+                                        <td>{{row.prioritycode.label}}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            {% else %}
+            <h1>Please login to see content of this page</h1>
+            {% endif %}
+        </div>
+    </div>
+</div>
+    <!-- Modal -->
+    <!-- New Case Data Modal -->
+<div class="modal fade modal-md" id="createnewcase" tabindex="-1" role="dialog" aria-labelledby="documentModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 style="float: left;font-size: 22px;" class="modal-title" id="documentModalLabel" >Create New Case</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12 mt-30">
+                    <div class="col-md-12">
+                        <label for="">Title*</label>
+                        <input type="text" id="title" class="form-control required">
+                    </div>
+                    <div class="col-md-6 mt30">
+                        <label for="">Origin</label>
+                        <select name="" id="origin" class="form-control">
+                            <option selected="selected" value="" label=" " aria-label="Blank"> </option>
+                            <option value="1">Phone</option>
+                            <option value="2">Email</option>
+                            <option value="3">Web</option>
+                            <option value="2483">Facebook</option>
+                            <option value="3986">Twitter</option>
+                            <option value="700610000">IoT</option>
+                            <option value="7">LinkedIn</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mt30">
+                        <label for="">Case Type</label>
+                        <select name="" id="casetype" class="form-control">
+                            <option selected="selected" value="" label=" " aria-label="Blank"> </option>
+                            <option value="1">Question</option>
+                            <option value="2">Problem/Fault</option>
+                            <option value="3">Service Request</option>
+                            <option value="4">Support/Help</option>
+                            <option value="5">Improvement</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mt30">
+                        <label for="">Product*</label>
+                        <select name="" id="product" class="form-control required" >
+                            <option selected="selected" value="" label=" " aria-label="Blank"> </option>
+                            {% for row in products.results.entities %}
+                            <option value="{{row.productid}}">{{row.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mt30">
+                        <label for="">Priority*</label>
+                        <select name="" id="priority" class="form-control required">
+                            <option selected="selected" value="" label=" " aria-label="Blank"> </option>
+                            <option value="1">Critical</option>
+                            <option value="2">High</option>
+                            <option value="3">Normal</option>
+                            <option value="4">Low</option>
+                            <option value="0">Critical</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 mt30">
+                        <label for="">Description*</label>
+                        <textarea rows="10" cols="20" maxlength="2000" id="description" class="textarea form-control required"></textarea>
+                    </div>
+                    <div class="col-md-12 mt30">
+                        <div id="captchadiv" class="col-md-12"><div id="captcha"></div><button class="refreshcap" onclick="GenerateCaptcha()"> Refresh</button></div>
+                        <div class="col-md-12">
+                            <label for="">Enter Catcha</label>
+                            <input type="text" class="required" id="capinput">
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary closebtn" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success mb-btn" onclick="CheckValidation()" style="">Create</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- loader -->
+<div class="loadercontainer hideit">
+    <div class="loadermain">
+        <div class="lds-spinner"><div>
+        </div><div></div><div></div>
+        <div></div><div></div><div></div><div></div><div></div><div>
+        </div><div></div><div></div><div></div></div>
+    </div>
+</div>
+
+<script>
+    //new DataTable('#caselist');
+    
+    new DataTable('#activecaselist', {
+        order: [[3, 'desc']]
+    });
+    new DataTable('#resolvedcaselist', {
+        order: [[3, 'desc']]
+    });
+    var parentaccountexist = false;
+    var validation = false;
+    var captcha;
+    let uniquechar = "";
+    GenerateCaptcha();
+    var parentaccount = "{{user.parentcustomerid.id}}";
+    
+    if(parentaccount == ""){
+        parentaccountexist = false;
+    }else{
+        parentaccountexist = true;
+    }
+    console.log("Account exist "+parentaccountexist+", Parent account is "+parentaccount);
+    
+    $(document).ready(function(){
+        $("#createnewcase input.required, #createnewcase textarea").keyup(function(){
+            if($(this).val().trim() == ""){
+                $(this).addClass("error");
+            }else{
+                $(this).removeClass("error");
+            }
+        });
+        $("#createnewcase select.required").change(function(){
+            if($(this).val() == ""){
+                $(this).addClass("error");
+            }else{
+                $(this).removeClass("error");
+            }
+        });
+    });
+    function CheckValidation(){
+        validation = true;
+        var iscaptchacorrect = true;
+        $("#createnewcase input.required, #createnewcase select.required, #createnewcase textarea").each(function(){
+            if($(this).val().trim() == "" ){
+                $(this).addClass("error");
+                validation = false;
+            }
+        });
+        if($("#capinput").val() == ""){
+            alert("Captcha is empty");
+        } 
+        if($("#capinput").val() != "" && uniquechar === $("#capinput").val()){
+            iscaptchacorrect = true;
+        }
+        else
+        {
+            iscaptchacorrect = false;
+            alert("Captcha is not correct");
+            $("#capinput").val(""); 
+        }
+        if(validation == false)
+        {
+            alert("Please fill all required fields");
+        }
+        if(validation == true && iscaptchacorrect == true){
+            if(parentaccountexist == true){
+                $(".loadercontainer").removeClass("hideit");
+                CreateCase(parentaccount);
+            }
+            else
+            {
+                $(".loadercontainer").removeClass("hideit");
+                webapi.safeAjax({
+                    type: "POST",
+                    url: "/_api/accounts",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "name" : "{{user.fullname}} Account (Portal)",
+                        "primarycontactid@odata.bind" : "/contacts({{user.id}})",
+                        
+                    }),
+                    success: function(res, status, xhr) {
+                        console.log("Account created successfully " + xhr.getResponseHeader("entityid"));
+                        UpdateContact(xhr.getResponseHeader("entityid"));
+                    },
+                    error: function(res, status, xhr){
+                        $(".loadercontainer").addClass("hideit");
+                        alert("Sorry! Something went wrong, please try again later");
+                    }
+                }); 
+            }
+        }
+        
+        
+        
+    }
+    function UpdateContact(accountid){
+        webapi.safeAjax({
+            type: "PATCH",
+            url: "/_api/contacts({{user.id}})",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "parentcustomerid_account@odata.bind" : "/accounts("+accountid+")"
+                
+            }),
+            success: function(res, status, xhr) {
+                console.log("contact updates successfully");
+                CreateCase(accountid);
+            },
+            error: function(res, status, xhr){
+                $(".loadercontainer").addClass("hideit");
+                alert("Sorry! Something went wrong, please try again later");
+            }
+        });
+    }
+    function CreateCase(parentaccountid){
+        console.log("clicked");
+        webapi.safeAjax({
+                type: "POST",
+                url: "/_api/incidents",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "title" : $("#title").val(),
+                    "productid@odata.bind" : $("#product").val() == "" ? null : "/products("+$("#product").val()+")",
+                    "caseorigincode" : ($("#origin").val() == "" ? null : $("#origin").val()),
+                    "casetypecode" : ($("#casetype").val() == "" ? null : $("#casetype").val()),
+                    "prioritycode" : ($("#priority").val() == "" ? null : $("#priority").val()),
+                    "description" : $("#description").val(),
+                    "primarycontactid@odata.bind" :  "/contacts({{user.id}})",
+                    "customerid_account@odata.bind": "/accounts("+parentaccountid+")"
+                }),
+                success: function(res, status, xhr) {
+                    console.log("entityID Of Case: " + xhr.getResponseHeader("entityid"));
+                    $(".loadercontainer").addClass("hideit");
+                    $("#createnewcase").modal("hide");
+                    alert("Case created successfully");
+                    location.reload();
+                },
+                error: function(res, status, xhr){
+                    $(".loadercontainer").addClass("hideit");
+                    console.log("Error: "+JSON.stringify(xhr));
+                    alert("Sorry! Something went wrong, please try again later, "+JSON.stringify(xhr));
+                }
+            });
+    }
+    function DeleteCase(id){
+        var dell = confirm("Are you sure you want to Delete the Case!");
+        $(".loadercontainer").removeClass("hideie");
+        if(dell == true){
+            webapi.safeAjax({
+            type: "DELETE",
+            url: "/_api/incidents("+id+")",
+            contentType:"application/json",
+            success: function(res) {
+                console.log(res);
+                $(".loadercontainer").addClass("hideie");
+                alert("Deleted successfully");
+                location.reload();
+            }
+        });
+
+        }
+    }
+    function GenerateCaptcha(){
+        // captcha
+        uniquechar = "";
+        const randomchar =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+        // Generate captcha for length of
+        // 5 with random character
+        for (let i = 1; i < 7; i++) {
+            uniquechar += randomchar.charAt(
+                Math.random() * randomchar.length)
+        }
+        captcha = document.getElementById("captcha");
+        // Store generated input
+        captcha.innerHTML = uniquechar;
+        // 
+    }
+</script>
